@@ -1,0 +1,25 @@
+@import 'libs/bootstrap-reboot';
+@import 'libs/bootstrap-grid';
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+@import 'base/variables';
+@import 'base/mixins';
+
+* {
+    font-family: 'Inter', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+// .container {
+//     width: 1140px;
+//     margin: 0 auto;
+// }
+
+// p {
+//     margin: 0;
+// }
+
+@import 'blocks/title';
+@import 'blocks/button';
+@import 'blocks/media';
