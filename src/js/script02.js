@@ -23,6 +23,14 @@ const overlay = document.querySelector(".overlay"),
       congratsMdl = document.querySelector("#congrats"),
       clearBtn = document.querySelector(".modal__buttons_clear");
 
+window.addEventListener("click", function (event) {
+    if (event.target === overlay) {
+        overlay.classList.remove("active");
+        leaveMdl.classList.remove("active");
+        congratsMdl.classList.remove("active");
+    }
+});
+
 leaveBtn.addEventListener("click", () => {
   overlay.classList.add("active");
   leaveMdl.classList.add("active");
