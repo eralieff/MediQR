@@ -1,79 +1,69 @@
-let progressBar = document.querySelector(".circular-progress");
+const progressBar = document.querySelector('.circular-progress');
+const overlay = document.querySelector('.overlay');
+const leaveModal = document.querySelector('#leave');
+const congratsModal = document.querySelector('#congrats');
+const leaveBtn = document.querySelector('.leave-button');
+const cancelBtn = document.querySelector('.modal__buttons_cancel');
+const closeBtns = document.querySelectorAll('.modal__close');
+const clearBtn = document.querySelector('.modal__buttons_clear');
+const numberOfPeople = document.querySelector('.number-of-people');
+const waitingTime = document.querySelector('.waiting-time');
+const notificationBtn = document.querySelector('.notification-button');
 
 let progressValue = 0;
 let progressEndValue = 50;
-let speed = 15;
+const speed = 15;
 
-let progress = setInterval(() => {
+const setProgress = () => {
   progressValue++;
-  progressBar.style.background = `conic-gradient(
-      #85D4FF ${progressValue * 3.6}deg,
-      #BCE8FF ${progressValue * 3.6}deg
-  )`;
-  if (progressValue == progressEndValue) {
+  progressBar.style.background = `conic-gradient(#85D4FF ${progressValue * 3.6}deg, #BCE8FF ${progressValue * 3.6}deg)`;
+  if (progressValue === progressEndValue) {
     clearInterval(progress);
   }
-}, speed);
+};
 
-const overlay = document.querySelector(".overlay"),
-      leaveMdl = document.querySelector("#leave"),
-      leaveBtn = document.querySelector(".leave-button"),
-      cancelBtn = document.querySelector(".modal__buttons_cancel"),
-      closeBtn = document.querySelector(".modal__close"),
-      congratsMdl = document.querySelector("#congrats"),
-      clearBtn = document.querySelector(".modal__buttons_clear");
+let progress = setInterval(setProgress, speed);
 
-window.addEventListener("click", function (event) {
-    if (event.target === overlay) {
-        overlay.classList.remove("active");
-        leaveMdl.classList.remove("active");
-        congratsMdl.classList.remove("active");
-    }
+const closeModal = () => {
+  overlay.classList.remove('active');
+  leaveModal.classList.remove('active');
+  congratsModal.classList.remove('active');
+};
+
+overlay.addEventListener('click', (event) => {
+  if (event.target === overlay) {
+    closeModal();
+  }
 });
 
-leaveBtn.addEventListener("click", () => {
-  overlay.classList.add("active");
-  leaveMdl.classList.add("active");
+leaveBtn.addEventListener('click', () => {
+  overlay.classList.add('active');
+  leaveModal.classList.add('active');
 });
 
-closeBtn.addEventListener("click", () => {
-  overlay.classList.remove("active");
-  leaveMdl.classList.remove("active");
-});
+for (const closeBtn of closeBtns) {
+  closeBtn.addEventListener('click', closeModal);
+}
 
-cancelBtn.addEventListener("click", () => {
-  overlay.classList.remove("active");
-  leaveMdl.classList.remove("active");
-});
+cancelBtn.addEventListener('click', closeModal);
 
-let numberOfPeople = document.querySelector(".number-of-people");
-let waitingTime = document.querySelector(".waiting-time");
-let notificationBtn = document.querySelector(".notification-button");
-
-let progressDone = setTimeout(() => {
-  leaveBtn.classList.add("inactive");
-  notificationBtn.classList.add("inactive");
-  progressBar.classList.add("center");
-  overlay.classList.add("active");
-  congratsMdl.classList.add("active");
+const showCongratsModal = () => {
+  leaveBtn.classList.add('inactive');
+  notificationBtn.classList.add('inactive');
+  progressBar.classList.add('center');
+  overlay.classList.add('active');
+  congratsModal.classList.add('active');
   progressValue++;
-  progressBar.style.background = `conic-gradient(
-      #7EFFBA ${progressValue * 3.6}deg,
-      #7EFFBA ${progressValue * 3.6}deg
-  )`;
-  if (progressValue == 100) {
+  progressBar.style.background = `conic-gradient(#7EFFBA ${progressValue * 3.6}deg, #7EFFBA ${progressValue * 3.6}deg)`;
+  if (progressValue === 100) {
     clearInterval(progressDone);
   }
-  numberOfPeople.textContent = "it's your turn now";
-  waitingTime.textContent = "You have been called!"
-}, 8000);
+  numberOfPeople.textContent = "It's your turn now";
+  waitingTime.textContent = 'You have been called!';
+};
 
-clearBtn.addEventListener("click", () => {
-  overlay.classList.remove("active");
-  congratsMdl.classList.remove("active");
-});
+let progressDone = setTimeout(showCongratsModal, 8000);
 
-document.getElementById("congrats__close").addEventListener("click", () => {
-  overlay.classList.remove("active");
-  congratsMdl.classList.remove("active");
-});
+clearBtn.addEventListener('click', closeModal);
+
+document.getElementById('congrats__close').addEventListener('click', closeModal);
