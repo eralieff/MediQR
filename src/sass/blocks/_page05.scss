@@ -22,3 +22,17 @@
         color: #37B5F9;
     }
 }
+
+.copy {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.copy-btn {
+    color: $white;
+    height: 42px;
+    width: 186px;
+    text-align: center;
+    margin-top: 12px;
+}
